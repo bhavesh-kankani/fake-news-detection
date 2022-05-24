@@ -1,6 +1,3 @@
-
-
-
 Tags:
 	1) India
 	2) World
@@ -12,28 +9,61 @@ Tags:
 	8) Health
 
 Backend:
-	scraper.py
+	fact_check
+        views:
+            - scraper()
+            - check_link()
+            - check_text()
+            - ML model
+        urls:
+            localhost:8000/fact_check/link/, views.check_link
+            localhost:8000/fact_check/text/, views.check_text
+
+    users
+        User model:
+            firstname
+            lastname
+            email
+            password
+            categories - csv
+        views:
+            - signup()
+            - getProfile()
+        urls:
+            - signup , views.signup
+            - profile, views.getProfile
+            - auth/token/,
+            - auth/token/refresh/
+        serializer:
+            - profile serializer
+            - user serializer
+
+
+
 
 
 Frontend:
 	Navbar component
 		* News Aggregator
-			[api call]: newsapi.org api call
+			[api call]: newsapi.org api call {check userDetails first}
 			[static]: Categories Component
 			[dynamic]: Card component
 		* Fake News Check Component
 			[api call]: localhost:8000/fact-check/
 		* User Component
-			- Profile
+			[SignIn/SignUp button]
+				or
+			[- Profile
 				[api call]: localhost:8000/users/user/
 				- firstname
 				- lastname
 				- email
 				- categories preferences
 			- SignOut
-				calls signout function in the context
-			
+				calls signout function in the context]
+
 	Context:
+        const userDetails = {}
 		signin method:
 			[api call]: localhost:8000/users/signin/
 		signup method:
@@ -50,9 +80,9 @@ Frontend:
 		- email
 		- password
 		- categories
-		
+
 
 
 
 Database:
-	
+    User model
