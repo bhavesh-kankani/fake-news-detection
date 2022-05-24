@@ -1,0 +1,58 @@
+
+
+
+Tags:
+	1) India
+	2) World
+	3) Business
+	4) Science
+	5) Technology
+	6) Entertainment
+	7) Sports
+	8) Health
+
+Backend:
+	scraper.py
+
+
+Frontend:
+	Navbar component
+		* News Aggregator
+			[api call]: newsapi.org api call
+			[static]: Categories Component
+			[dynamic]: Card component
+		* Fake News Check Component
+			[api call]: localhost:8000/fact-check/
+		* User Component
+			- Profile
+				[api call]: localhost:8000/users/user/
+				- firstname
+				- lastname
+				- email
+				- categories preferences
+			- SignOut
+				calls signout function in the context
+			
+	Context:
+		signin method:
+			[api call]: localhost:8000/users/signin/
+		signup method:
+			[api call]: localhost:8000/users/signup/
+		signout method:
+			[api call]: localhost:8000/users/signout/
+
+	SignIn Component:
+		- email
+		- password
+	SignUp Component:
+		- firstname
+		- lastname
+		- email
+		- password
+		- categories
+		
+
+
+
+Database:
+	
