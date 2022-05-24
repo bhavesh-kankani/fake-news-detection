@@ -40,8 +40,6 @@ Backend:
 
 
 
-
-
 Frontend:
 	Navbar component
 		* News Aggregator
