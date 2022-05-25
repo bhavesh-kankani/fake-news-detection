@@ -1,27 +1,27 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Aggregator = ({ history }) => {
-  return (
-    <div>
-      <h1>Aggregator</h1>
-      <button
-        onClick={() => {
-          history.push("/signin");
-          history.go();
-        }}
-      >
-        Sign In
-      </button>
-      <button
-        onClick={() => {
-          history.push("/signup");
-          history.go();
-        }}
-      >
-        Sign Up
-      </button>
-    </div>
-  );
+const Aggregator = () => {
+	const navigate = useNavigate();
+	return (
+		<div>
+			<h1>Aggregator</h1>
+			<button
+				onClick={() => {
+					navigate("/signin");
+				}}
+			>
+				Sign In
+			</button>
+			<button
+				onClick={() => {
+					navigate("/signup");
+				}}
+			>
+				Sign Up
+			</button>
+		</div>
+	);
 };
 
 export default Aggregator;
