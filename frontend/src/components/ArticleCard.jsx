@@ -12,14 +12,14 @@ export default function ArticleCard({ article }) {
       sx={{
         display: "flex",
         flexDirection: "row",
-        height: "30vh",
-        overflow: "scroll",
+        alignItems: "center",
+        height: "240px",
       }}
     >
       <CardMedia
         component="img"
-        height="140"
         image={article.urlToImage || img}
+        sx={{ width: "200px", height: "200px", objectFit: "cover" }}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" textAlign="left">

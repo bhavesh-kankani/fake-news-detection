@@ -55,7 +55,7 @@ const Aggregator = () => {
     <>
       <Box
         className="CategoryBar"
-        sx={{ display: "flex", justifyContent: "center", mt: "1%" }}
+        sx={{ display: "flex", justifyContent: "center", mt: 3 }}
       >
         <ToggleButtonGroup
           color="primary"
@@ -91,6 +91,7 @@ const Aggregator = () => {
         sx={{
           flexGrow: 1,
           mt: "1%",
+          mb: "2%",
           width: "90vw",
           ml: "5vw",
         }}
