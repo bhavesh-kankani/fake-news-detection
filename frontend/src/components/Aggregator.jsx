@@ -86,7 +86,15 @@ const Aggregator = () => {
       >
         Top Headlines
       </Typography>
-      <Box className="NewsArticles" sx={{ flexGrow: 1, mt: "1%" }}>
+      <Box
+        className="NewsArticles"
+        sx={{
+          flexGrow: 1,
+          mt: "1%",
+          width: "90vw",
+          ml: "5vw",
+        }}
+      >
         <Grid container spacing={2} align="center">
           {articles.map((article) => (
             <Grid item xs={6} key={articles.indexOf(article)}>

@@ -8,7 +8,14 @@ import img from "../utils/defaultnews.jpg";
 
 export default function ArticleCard({ article }) {
   return (
-    <Card maxWidth="80%" sx={{ display: "flex", flexDirection: "row" }}>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        height: "30vh",
+        overflow: "scroll",
+      }}
+    >
       <CardMedia
         component="img"
         height="140"
@@ -16,20 +23,24 @@ export default function ArticleCard({ article }) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" textAlign="left">
-          {article.title}
+          {article.title.split("-")[0]}
         </Typography>
         <Typography variant="body2" color="text.secondary" textAlign="left">
-          {article.description}
+          {article.description &&
+            (article.description.length > 170
+              ? article.description.substring(0, 165) + "..."
+              : article.description)}
+          <Link
+            href={article.url}
+            underline="hover"
+            target="_blank"
+            rel="noopener"
+            align="left"
+            sx={{ ml: "1.5%" }}
+          >
+            Read More
+          </Link>
         </Typography>
-        <Link
-          href={article.url}
-          underline="hover"
-          target="_blank"
-          rel="noopener"
-          align="left"
-        >
-          Link to Article
-        </Link>
       </CardContent>
     </Card>
   );
