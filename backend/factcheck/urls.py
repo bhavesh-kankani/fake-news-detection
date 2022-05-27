@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 
-url_patterns = [
+urlpatterns = [
     path("link/", check_link),
     path("text/", check_text),
 ]
