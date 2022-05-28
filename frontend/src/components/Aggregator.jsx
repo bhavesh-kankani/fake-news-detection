@@ -98,7 +98,7 @@ const Aggregator = () => {
         <Grid container spacing={2} align="center">
           {articles.map((article) => (
             <Grid item xs={6} key={articles.indexOf(article)}>
-              <ArticleCard article={article} />
+              <ArticleCard article={article} category={category} />
             </Grid>
           ))}
         </Grid>

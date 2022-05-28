@@ -7,7 +7,7 @@ import { Link } from "@mui/material";
 import img from "../utils/defaultnews.jpg";
 import { stripHtml } from "../utils/utils";
 
-export default function ArticleCard({ article }) {
+export default function ArticleCard({ article, category }) {
   return (
     <Card
       sx={{
@@ -41,6 +41,9 @@ export default function ArticleCard({ article }) {
           >
             Read More
           </Link>
+        </Typography>
+        <Typography variant="body1" color="text.primary" textAlign="left">
+          {category}
         </Typography>
       </CardContent>
     </Card>

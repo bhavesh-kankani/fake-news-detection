@@ -60,7 +60,8 @@ export default function ProfileModal({ open, handleClose }) {
             <strong>Email Address:</strong> {userData.email}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <strong>Preferences:</strong> {userData.preferences.join(", ")}
+            <strong>Preferences:</strong>{" "}
+            {userData.preferences && userData.preferences.join(", ")}
           </Typography>
         </Box>
       </Modal>
