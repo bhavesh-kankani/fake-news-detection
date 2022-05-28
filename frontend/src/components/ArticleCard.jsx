@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Link } from "@mui/material";
 import img from "../utils/defaultnews.jpg";
+import { stripHtml } from "../utils/utils";
 
 export default function ArticleCard({ article }) {
   return (
@@ -19,7 +20,7 @@ export default function ArticleCard({ article }) {
       <CardMedia
         component="img"
         image={article.urlToImage || img}
-        sx={{ width: "200px", height: "200px", objectFit: "cover" }}
+        sx={{ width: "200px", height: "200px", objectFit: "cover", ml: 2 }}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" textAlign="left">
@@ -28,8 +29,8 @@ export default function ArticleCard({ article }) {
         <Typography variant="body2" color="text.secondary" textAlign="left">
           {article.description &&
             (article.description.length > 170
-              ? article.description.substring(0, 165) + "..."
-              : article.description)}
+              ? stripHtml(article.description.substring(0, 165)) + "..."
+              : stripHtml(article.description))}
           <Link
             href={article.url}
             underline="hover"

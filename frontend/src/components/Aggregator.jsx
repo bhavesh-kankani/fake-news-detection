@@ -50,7 +50,6 @@ const Aggregator = () => {
         .then((res) => setArticles(res.data.articles));
     }
   }, [category]);
-  console.log(articles);
   return (
     <>
       <Box

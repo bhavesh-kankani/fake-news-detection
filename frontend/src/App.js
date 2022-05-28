@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -8,12 +8,18 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
-  // conditionally render <Navbar />
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div className="App">
       <Router>
         <AuthProvider>
-          <Navbar />
+          <Navbar
+            open={open}
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+          />
           <Routes>
             <Route exact path="/" element={<Aggregator />} />
             <Route exact path="/fake-news-check" element={<FactChecker />} />

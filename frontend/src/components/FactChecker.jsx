@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -58,6 +59,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 const FactChecker = () => {
   const [checked, setChecked] = useState(false);
   const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
   const highlightStyle = { fontSize: "1.25rem", fontWeight: "bold" };
   const defaultStyle = { fontSize: "1.25rem" };
 
@@ -69,6 +71,21 @@ const FactChecker = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (checked) {
+      // post as text
+      axios
+        .post("http://localhost:8000/fact-check/text/", { content: input })
+        .then((response) => {
+          setResult(response.data["prediction"]);
+        });
+    } else {
+      // post as link
+      axios
+        .post("http://localhost:8000/fact-check/link/", { url: input })
+        .then((response) => {
+          setResult(response.data["prediction"]);
+        });
+    }
   };
 
   return (
@@ -146,7 +163,9 @@ const FactChecker = () => {
               Check
             </Button>
           </Box>
-          <Typography sx={{ fontWeight: "bold" }}>RESULT: FAKE/REAL</Typography>
+          <Typography sx={{ fontWeight: "bold" }}>
+            RESULT: {result.toUpperCase()}
+          </Typography>
         </CardContent>
       </Card>
     </Box>

@@ -8,16 +8,16 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-// import AuthContext from "../context/AuthContext";
+import AuthContext from "../context/AuthContext";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import ProfileModal from "./ProfileModal";
 
-export default function Navbar() {
+export default function Navbar({ open, handleOpen, handleClose }) {
   const navigate = useNavigate();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const pages = ["News", "Fake News Check"];
-  // const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,12 +27,17 @@ export default function Navbar() {
     page === "News" ? navigate("/") : navigate("fake-news-check");
   };
 
-  const handleClose = () => {
+  const handleNavClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignIn = () => {
+    navigate("signin");
   };
 
   return (
     <>
+      <ProfileModal open={open} handleClose={handleClose} />
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
@@ -49,7 +54,7 @@ export default function Navbar() {
                 </Button>
               ))}
             </Box>
-            {auth && (
+            {user ? (
               <div>
                 <IconButton
                   size="large"
@@ -74,12 +79,27 @@ export default function Navbar() {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorEl)}
-                  onClose={handleClose}
+                  onClose={handleNavClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                  <MenuItem onClick={handleOpen}>Profile</MenuItem>
+                  <MenuItem
+                    onClick={(event) => {
+                      logoutUser(event);
+                      setAnchorEl(null);
+                    }}
+                  >
+                    Log Out
+                  </MenuItem>
                 </Menu>
               </div>
+            ) : (
+              <Button
+                variant="text"
+                sx={{ color: "white" }}
+                onClick={handleSignIn}
+              >
+                Sign In
+              </Button>
             )}
           </Toolbar>
         </AppBar>
