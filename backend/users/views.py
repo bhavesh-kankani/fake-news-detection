@@ -2,10 +2,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CustomUserSerializer, ProfileSerializer
+from .models import User
 
 @api_view(["POST"])
 def signup(request):
-    print(request.data)
     data = {
         "email": request.data.get("email", None).lower(),
         "password": request.data.get("password", None),
@@ -23,9 +23,20 @@ def signup(request):
 
 
 @api_view(["GET"])
-def getProfile(request):
+def get_profile(request):
     user = request.user
     serializer = ProfileSerializer(user)
     data = serializer.data
     data["preferences"] = serializer.data["preferences"].split(',')
     return Response(data, status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+def edit_preferences(request):
+    string = []
+    for x in request.data:
+        if request.data[x] == True:
+            string.append(x)
+    user = User.objects.get(email = request.user)
+    user.preferences = ','.join(string)
+    user.save()
+    return Response(status=status.HTTP_200_OK)

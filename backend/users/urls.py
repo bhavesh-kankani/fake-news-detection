@@ -6,5 +6,6 @@ urlpatterns = [
     path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('signup/', signup),
-    path('profile/', getProfile),
+    path('profile/', get_profile),
+    path('update-preferences/', edit_preferences)
 ]
