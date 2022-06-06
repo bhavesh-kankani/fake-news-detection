@@ -6,10 +6,13 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import ArticleCard from "./ArticleCard";
 
 const Aggregator = () => {
+  const { user, authTokens } = useContext(AuthContext);
+  const [preferences, setPreferences] = useState([]);
   const [articles, setArticles] = useState([]);
   const categoriesArray = [
     "All News",
@@ -30,22 +33,51 @@ const Aggregator = () => {
   };
 
   useEffect(() => {
+    axios
+      .get(`http://localhost:8000/users/profile/`, {
+        headers: {
+          Authorization: "Bearer " + authTokens?.access,
+        },
+      })
+      .then((res) => {
+        setPreferences(res.data["preferences"]);
+      });
     if (category === "All News") {
-      axios
-        .get(
-          "https://newsapi.org/v2/top-headlines?language=en&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c"
-        )
-        .then((res) => setArticles(res.data.articles));
+      if (preferences) {
+        if (user) {
+          let temp = preferences.map((pref) => pref.toLowerCase());
+          let urlParams = "category=" + temp.join("&category=");
+          if (temp.includes("india")) {
+            axios
+              .get(
+                `https://newsapi.org/v2/top-headlines?language=en&pageSize=100&country=in&${urlParams}&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c`
+              )
+              .then((res) => setArticles(res.data.articles));
+          } else {
+            axios
+              .get(
+                `https://newsapi.org/v2/top-headlines?language=en&pageSize=100&${urlParams}&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c`
+              )
+              .then((res) => setArticles(res.data.articles));
+          }
+        } else {
+          axios
+            .get(
+              "https://newsapi.org/v2/top-headlines?language=en&pageSize=100&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c"
+            )
+            .then((res) => setArticles(res.data.articles));
+        }
+      }
     } else if (category === "India") {
       axios
         .get(
-          "https://newsapi.org/v2/top-headlines?country=in&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c"
+          "https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c"
         )
         .then((res) => setArticles(res.data.articles));
     } else {
       axios
         .get(
-          `https://newsapi.org/v2/top-headlines?language=en&category=${category.toLowerCase()}&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c`
+          `https://newsapi.org/v2/top-headlines?language=en&pageSize=50&category=${category.toLowerCase()}&apiKey=56ee1ebf0c3c46b69bf1ce765e34309c`
         )
         .then((res) => setArticles(res.data.articles));
     }
