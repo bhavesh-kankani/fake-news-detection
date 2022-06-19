@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Button,
+  CircularProgress,
   Card,
   CardContent,
   Stack,
@@ -57,6 +58,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const FactChecker = () => {
+  const [firstload, setFirstload] = useState(true)
   const [checked, setChecked] = useState(false);
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
@@ -72,6 +74,8 @@ const FactChecker = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    setResult('');
+    setFirstload(false);
     if (checked) {
       // post as text
       axios
@@ -172,10 +176,12 @@ const FactChecker = () => {
               Check
             </Button>
           </Box>
-          {result && (
+          { (result && !firstload) ? (
             <Typography sx={{ fontWeight: "bold" }}>
               RESULT: {result}
             </Typography>
+          ) : ( 
+            !firstload && <CircularProgress/>
           )}
         </CardContent>
       </Card>
